@@ -1,2 +1,4 @@
-# deploy-aws
-Ubuntu with aws cli and nodejs
+Deploy
+==========
+
+Ubuntu docker image with aws cli and nodejs
