@@ -24,12 +24,11 @@ RUN pip install awscli
 
 # Install nvm with node and npm
 ARG NVM_DIR=/usr/local/nvm
-ARG NVM_VERSION=0.31.5
-ARG NODE_VERSION=4.5.0
+ARG NVM_VERSION=0.31.6
 RUN wget -qO- https://raw.githubusercontent.com/creationix/nvm/v$NVM_VERSION/install.sh | bash \
     && source $NVM_DIR/nvm.sh \
-    && nvm install $NODE_VERSION \
-    && nvm use $NODE_VERSION \
+    && nvm install --lts \
+    && nvm use --lts \
     && n=$(which node) \
     && n=${n%/bin/node} \
     && chmod -R 755 $n/bin/* \
