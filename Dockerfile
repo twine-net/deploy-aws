@@ -22,16 +22,17 @@ RUN apt-get update && apt-get install -y \
 # Install aws cli
 RUN pip install awscli
 
-ENV NVM_DIR /usr/local/nvm
-ENV NVM_VERSION 0.31.3
-ENV NODE_VERSION 4.4.7
-
 # Install nvm with node and npm
+ARG NVM_DIR=/usr/local/nvm
+ARG NVM_VERSION=0.31.5
+ARG NODE_VERSION=4.5.0
 RUN wget -qO- https://raw.githubusercontent.com/creationix/nvm/v$NVM_VERSION/install.sh | bash \
     && source $NVM_DIR/nvm.sh \
     && nvm install $NODE_VERSION \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default
-
-ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
-ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
+    && nvm use $NODE_VERSION \
+    && n=$(which node) \
+    && n=${n%/bin/node} \
+    && chmod -R 755 $n/bin/* \
+    && cp -r $n/{bin,lib,share} /usr/local \
+    && nvm unload \
+    && rm -rf $NVM_DIR
