@@ -32,5 +32,10 @@ RUN wget -qO- https://raw.githubusercontent.com/creationix/nvm/v$NVM_VERSION/ins
     && n=${n%/bin/node} \
     && chmod -R 755 $n/bin/* \
     && cp -r $n/{bin,lib,share} /usr/local \
-    && nvm unload \
-    && rm -rf $NVM_DIR
+    && rm -rf $NVM_DIR \
+    && nvm unload
+
+# Cleanup
+RUN apt-get clean \
+    && rm -rf ~/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && history -c
