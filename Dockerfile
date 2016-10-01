@@ -16,15 +16,14 @@ RUN apt-get update && apt-get install -y \
     git-core \
     python-pip \
     jq \
-    curl \
-&& rm -rf /var/lib/apt/lists/*
+    curl
 
 # Install aws cli
 RUN pip install awscli
 
 # Install nvm with node and npm
 ARG NVM_DIR=/usr/local/nvm
-ARG NVM_VERSION=0.31.6
+ARG NVM_VERSION=0.32.0
 RUN wget -qO- https://raw.githubusercontent.com/creationix/nvm/v$NVM_VERSION/install.sh | bash \
     && source $NVM_DIR/nvm.sh \
     && nvm install --lts \
